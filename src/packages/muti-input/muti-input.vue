@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+    name:'vueMutiInput',
     data(){
         return {
             msg:'12345'
