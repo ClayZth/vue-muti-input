@@ -1,0 +1,43 @@
+{
+    "name": "vue-muti-input",
+    "version": "1.0.0",
+    "description": "A vue compontent to input multiple",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "vue": "^2.6.9"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ],
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.0",
+        "babel-preset-stage-3": "^6.24.1",
+        "cross-env": "^5.0.5",
+        "css-loader": "^0.28.7",
+        "file-loader": "^1.1.4",
+        "node-sass": "^4.11.0",
+        "sass-loader": "^6.0.6",
+        "vue-loader": "^13.0.5",
+        "vue-template-compiler": "^2.6.9",
+        "webpack": "^3.6.0",
+        "webpack-dev-server": "^2.9.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ClayZth/vue-muti-input.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ClayZth/vue-muti-input/issues"
+    },
+    "homepage": "https://github.com/ClayZth/vue-muti-input#readme"
+}
