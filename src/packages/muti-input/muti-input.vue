@@ -1,20 +1,29 @@
 <template>
-  <div class="z-container">
+  <div class="z-container" id="vueMutiInput">
     <div class="input-container">
-      <input
-        type="text"
-        :placeholder="placeholder"
-        readonly
-        class="z-input"
-        @focus="onInputFocus"
+      <div class="z-input" @click="onInputFocus">
+        <div v-if="showPlaceholder" class="placeholder">{{ placeholder }}</div>
+        <div class="displayValue">{{ displayValue }}</div>
+      </div>
+
+      <img
+        src="../../assets/close.svg"
+        class="close-icon"
+        v-if="allowClear"
+        @click="onReset"
       />
-      <img src="../../assets/close.svg" class="close-icon" />
     </div>
     <div class="textarea-container" v-if="isShow">
-      <textarea name="zTextarea" autofocus class="z-textarea"></textarea>
+      <textarea
+        name="zTextarea"
+        autofocus
+        class="z-textarea"
+        placeholder="请用回车进行分隔"
+        v-model="inputValue"
+      ></textarea>
       <div class="z-buttons">
-        <button>确认</button>
-        <button>重置</button>
+        <button class="z-sureBtn" @click="onSure">确认</button>
+        <button class="z-resetBtn" @click="onReset">重置</button>
       </div>
     </div>
   </div>
@@ -27,20 +36,92 @@ export default {
       type: String,
       default: "请输入",
     },
+    allowClear: {
+      type: Boolean,
+      default: false,
+    },
+    outsideClose: {
+      type: Boolean,
+      default: false,
+    },
+    value: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  model: {
+    prop: "value",
+    event:"change"
   },
   data() {
     return {
       isShow: false,
+      displayValue: "",
+      inputValue: "",
     };
+  },
+  computed: {
+    showPlaceholder() {
+      return !this.displayValue;
+    },
+  },
+  created() {
+    if (this.value && this.value.length) {
+      this.displayValue = this.value.join(",");
+      this.inputValue = this.value.join("\n");
+    }
+  },
+  mounted() {
+    document.addEventListener("click", (e) => {
+      let box = document.getElementById("vueMutiInput");
+      if (!box.contains(e.target) && this.isShow && this.outsideClose) {
+        this.isShow = false;
+      }
+    });
   },
   methods: {
     onInputFocus() {
-      this.isShow = true;
+      this.isShow = !this.isShow;
+    },
+    onSure() {
+      if (this.inputValue && this.inputValue.indexOf("\n" > -1)) {
+        this.displayValue = this.inputValue.replace(/\n/g, ",");
+      } else {
+        this.displayValue = "";
+      }
+      this.isShow = false;
+    },
+    onReset() {
+      this.displayValue = "";
+      this.inputValue = "";
+      this.$emit('change',[])
     },
   },
 };
 </script>
 <style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+$blue: #3d9cff;
+$gray: #ced6e0;
+$black: rgba(0, 0, 0, 0.65);
+$white: #fff;
+%btn {
+  width: 40px;
+  height: 25px;
+  line-height: 25px;
+  box-sizing: border-box;
+  border: 1px solid #ced6e0;
+  border-radius: 4px;
+  user-select: none;
+  font-size: 12px;
+  &:hover {
+    cursor: pointer;
+    border-color: #3d9cff;
+  }
+}
 .z-container {
   width: 300px;
   .input-container {
@@ -50,13 +131,21 @@ export default {
     position: relative;
     .z-input {
       width: 100%;
-      height: 30px;
-      padding: 2px 6px;
+      height: 35px;
+      line-height: 26px;
+      cursor: text;
+      padding: 4px 11px;
       box-sizing: border-box;
-      outline: 0;
-      border: 1px solid #ced6e0;
+      font-size: 14px;
+      border: 1px solid $gray;
       border-radius: 5px;
       transition: all 0.35s ease-in-out;
+      .placeholder {
+        color: #999;
+      }
+      .displayValue {
+        color: #333;
+      }
     }
     .close-icon {
       position: absolute;
@@ -72,23 +161,37 @@ export default {
     width: 100%;
     height: 150px;
     box-sizing: border-box;
+    transition: all 0.35s ease-in-out;
     .z-textarea {
       width: 100%;
       height: 150px;
+      padding: 4px 11px;
       box-sizing: border-box;
       resize: none;
       outline: 0;
-      border: 1px solid #ced6e0;
+      border: 1px solid $gray;
       border-radius: 5px;
-      &:hover,
       &:focus {
-        border-color: #3d9cff;
+        border-color: $blue;
       }
     }
     .z-buttons {
       position: absolute;
       bottom: 4px;
       right: 8px;
+      .z-sureBtn {
+        @extend %btn;
+        background-color: $blue;
+        color: $white;
+      }
+      .z-resetBtn {
+        @extend %btn;
+        background-color: $white;
+        color: $black;
+        &:hover {
+          color: $blue;
+        }
+      }
     }
   }
 }
