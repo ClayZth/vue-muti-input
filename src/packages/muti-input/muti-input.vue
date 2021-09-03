@@ -5,13 +5,7 @@
         <div v-if="showPlaceholder" class="placeholder">{{ placeholder }}</div>
         <div class="displayValue">{{ displayValue }}</div>
       </div>
-
-      <img
-        src="src/packages/muti-input/imgs/close.svg"
-        class="close-icon"
-        v-if="allowClear"
-        @click="onReset"
-      />
+      <div class="close-icon" v-if="allowClear" @click="onReset"></div>
     </div>
     <div class="textarea-container" v-if="isShow">
       <textarea
@@ -51,7 +45,7 @@ export default {
   },
   model: {
     prop: "value",
-    event:"change"
+    event: "change",
   },
   data() {
     return {
@@ -94,7 +88,7 @@ export default {
     onReset() {
       this.displayValue = "";
       this.inputValue = "";
-      this.$emit('change',[])
+      this.$emit("change", []);
     },
   },
 };
@@ -148,8 +142,28 @@ $white: #fff;
       }
     }
     .close-icon {
+      width: 16px;
+      height: 16px;
       position: absolute;
       right: 8px;
+      border: 1px solid $gray;
+      border-radius: 50%;
+      &::before,
+      &::after {
+        position: absolute;
+        left: 7px;
+        top: 3px;
+        content: "";
+        background-color: $gray;
+        height: 10px;
+        width: 2px;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
       &:hover {
         transform: scale(1.2);
         cursor: pointer;
