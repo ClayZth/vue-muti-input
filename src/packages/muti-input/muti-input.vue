@@ -7,7 +7,7 @@
       </div>
 
       <img
-        src="../../assets/close.svg"
+        src="src/packages/muti-input/imgs/close.svg"
         class="close-icon"
         v-if="allowClear"
         @click="onReset"
