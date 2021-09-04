@@ -14,7 +14,12 @@
             :key="index"
             class="z-label"
           >
-            {{ item }}
+            <div>{{ item }}</div>
+            <div
+              class="delete-icon"
+              v-if="allowDeleteLabel"
+              @click.stop="onDelete(item)"
+            ></div>
           </div>
         </div>
         <div v-if="showPlaceholder" class="placeholder">{{ placeholder }}</div>
@@ -61,6 +66,10 @@ export default {
       default: false,
     },
     needBlank: {
+      type: Boolean,
+      default: false,
+    },
+    allowDeleteLabel: {
       type: Boolean,
       default: false,
     },
@@ -141,6 +150,14 @@ export default {
       }
       this.inputValue = "";
       this.$emit("change", []);
+    },
+    onDelete(str) {
+      let list = this.inputValue.split('\n')
+      const id = list.findIndex(v=>v === str)
+      list.splice(id,1)
+      this.inputValue = list.join('\n')
+      const idx = this.displayValue.findIndex(v=>v === str)
+      this.displayValue.splice(idx,1)
     },
   },
 };
@@ -223,6 +240,8 @@ $white: #fff;
         flex-wrap: wrap;
         width: 92%;
         .z-label {
+          display: flex;
+          align-items: center;
           height: auto;
           line-height: 20px;
           padding: 0 7px;
@@ -231,6 +250,31 @@ $white: #fff;
           margin: 0 8px 4px 0;
           background-color: #fafafa;
           border-radius: 4px;
+          .delete-icon {
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            position: relative;
+            &::before,
+            &::after {
+              position: absolute;
+              left: 6px;
+              top: 3px;
+              content: "";
+              background-color: $gray;
+              height: 10px;
+              width: 2px;
+            }
+            &::before {
+              transform: rotate(45deg);
+            }
+            &::after {
+              transform: rotate(-45deg);
+            }
+            &:hover{
+              cursor: pointer;
+            }
+          }
         }
       }
     }

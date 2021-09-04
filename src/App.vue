@@ -5,6 +5,7 @@
       allowClear
       outsideClose
       useLabel
+      allowDeleteLabel
       v-model="modalData"
     >
     </vue-muti-input>
