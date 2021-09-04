@@ -4,6 +4,7 @@
       placeholder="请输入员工工号"
       allowClear
       outsideClose
+      useLabel
       v-model="modalData"
     >
     </vue-muti-input>
@@ -13,7 +14,7 @@
 export default {
   data() {
     return {
-      modalData: [1, 2, 3, 4, 5],
+      modalData: ['20017892qqqqq', '20018888werw', '20019874qwet', '20015656', '20015555'],
     };
   },
 };
