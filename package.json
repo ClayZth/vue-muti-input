@@ -1,6 +1,6 @@
 {
     "name": "zthclay-muti-input",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "A vue compontent to input multiple",
     "private": false,
     "main": "dist/vue-muti-input.js",
