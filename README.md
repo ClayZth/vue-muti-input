@@ -17,7 +17,7 @@ npm install zthclay-muti-input --save
 
 ```vue
 import Vue from 'vue'
-import VueMutiInput from './index.js'
+import VueMutiInput from 'zthclay-muti-input'
 Vue.use(VueMutiInput)
 ```
 
