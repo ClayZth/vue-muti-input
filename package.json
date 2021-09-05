@@ -1,6 +1,6 @@
 {
     "name": "zthclay-muti-input",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "A vue compontent to input multiple",
     "private": false,
     "main": "dist/vue-muti-input.js",
@@ -36,7 +36,7 @@
         "type": "git",
         "url": "git+https://github.com/ClayZth/vue-muti-input.git"
     },
-    "keywords": [],
+    "keywords": ["vue", "muti-input"],
     "author": "zthClay",
     "license": "ISC",
     "bugs": {
